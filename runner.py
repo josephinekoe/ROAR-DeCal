@@ -19,7 +19,7 @@ def main():
     try:
         my_vehicle = carla_runner.set_carla_world()
         # agent = PurePursuitAgent(vehicle=my_vehicle, agent_settings=config.agent_config)
-        agent = PIDAgent(vehicle=my_vehicle, agent_settings=config.agent_config)
+        agent = PIDAgent(vehicle=my_vehicle, agent_settings=config.agent_config, target_speed=40)
         # agent = MPCAgent(vehicle=my_vehicle, agent_settings=config.agent_config)
         carla_runner.start_game_loop(agent=agent, use_manual_control=False)
     except Exception as e:
