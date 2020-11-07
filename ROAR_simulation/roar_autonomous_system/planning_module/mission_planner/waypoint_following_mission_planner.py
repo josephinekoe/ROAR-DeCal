@@ -13,6 +13,8 @@ from ROAR_simulation.roar_autonomous_system.utilities_module.vehicle_models impo
     Vehicle,
 )
 from collections import deque
+import numpy as np
+from scipy.optimize import curve_fit
 
 
 class WaypointFollowingMissionPlanner(MissionPlanner):
@@ -50,6 +52,33 @@ class WaypointFollowingMissionPlanner(MissionPlanner):
         """
         mission_plan = deque()
         raw_path: List[List[float]] = self._read_data_file()
+        
+        def func(t, a, b, c):
+            return a * t **2 + b * t + c
+        mission_len = len(raw_path)
+        ts = np.array(range(mission_len))
+        npy = np.array(raw_path)
+        xs = npy[:, 0]
+        ys = npy[:, 1]
+        zs = npy[:, 2]
+        approx = []
+        for i in range(len(ts)):
+            x_popt = curve_fit(func, 
+                               ts[max(0, i - 2) : min(mission_len, i + 3)], 
+                               xs[max(0, i - 2) : min(mission_len, i + 3)])[0]
+            y_popt = curve_fit(func, 
+                               ts[max(0, i - 2) : min(mission_len, i + 3)], 
+                               ys[max(0, i - 2) : min(mission_len, i + 3)])[0]
+            z_popt = curve_fit(func, 
+                               ts[max(0, i - 2) : min(mission_len, i + 3)], 
+                               zs[max(0, i - 2) : min(mission_len, i + 3)])[0]
+
+            approx.append([func(ts[i], *x_popt), func(ts[i], *y_popt), func(ts[i], *z_popt)])
+            approx.append([func(ts[i] + 0.25, *x_popt), func(ts[i] + 0.25, *y_popt), func(ts[i] + 0.25, *z_popt)])
+            approx.append([func(ts[i] + 0.5, *x_popt), func(ts[i] + 0.5, *y_popt), func(ts[i] + 0.5, *z_popt)])
+            approx.append([func(ts[i] + 0.75, *x_popt), func(ts[i] + 0.75, *y_popt), func(ts[i] + 0.75, *z_popt)])
+        raw_path = approx
+
         for coord in raw_path:
             if len(coord) == 3 or len(coord) == 6:
                 mission_plan.append(self._raw_coord_to_transform(coord))
