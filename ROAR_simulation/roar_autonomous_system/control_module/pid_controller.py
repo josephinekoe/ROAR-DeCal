@@ -38,9 +38,9 @@ class PIDParam(BaseModel):
 
 # speed - LateralPIDParam
 OPTIMIZED_LATERAL_PID_VALUES = {
-    60:  PIDParam(K_P=0.25, K_D=0., K_I=0.), # 0.5, 0.5, 0.5
-    100: PIDParam(K_P=0.25, K_D=0., K_I=0.), # 0.2, 0.2, 0.5
-    150: PIDParam(K_P=0.25, K_D=0., K_I=0.), # 0.01, 0.075, 0.7
+    60:  PIDParam(K_P=0.3, K_D=0., K_I=0.), # 0.5, 0.5, 0.5
+    100: PIDParam(K_P=0.3, K_D=0., K_I=0.), # 0.2, 0.2, 0.5
+    150: PIDParam(K_P=0.3, K_D=0., K_I=0.), # 0.01, 0.075, 0.7
 }
 
 
