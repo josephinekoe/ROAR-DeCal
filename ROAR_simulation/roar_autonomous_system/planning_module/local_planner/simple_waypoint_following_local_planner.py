@@ -2,8 +2,7 @@ from ROAR_simulation.roar_autonomous_system.planning_module.local_planner.local_
     LocalPlanner,
 )
 from ROAR_simulation.roar_autonomous_system.utilities_module.data_structures_models import (
-    Transform, 
-    Location,
+    Transform,
 )
 from ROAR_simulation.roar_autonomous_system.utilities_module.vehicle_models import (
     Vehicle,
@@ -105,10 +104,6 @@ class SimpleWaypointFollowingLocalPlanner(LocalPlanner):
         if vehicle_transform is None:
             raise AgentException("I do not know where I am, I cannot proceed forward")
 
-        # projected_location = Location(x=self.vehicle.transform.location.x + 0.001 * self.vehicle.velocity.x, 
-        #                     y=self.vehicle.transform.location.y + 0.001 * self.vehicle.velocity.y, 
-        #                     z=self.vehicle.transform.location.y + 0.001 * self.vehicle.velocity.z)
-
         # redefine closeness level based on speed
         curr_speed = Vehicle.get_speed(self.vehicle)
         if curr_speed < 60:
@@ -128,7 +123,7 @@ class SimpleWaypointFollowingLocalPlanner(LocalPlanner):
                 self.logger.info("Destination reached")
                 return VehicleControl()
             waypoint: Transform = self.way_points_queue[0]
-            curr_dist = vehicle_transform.location.distance(waypoint.location) # vehicle_transform.location
+            curr_dist = vehicle_transform.location.distance(waypoint.location) 
             if curr_dist < curr_closest_dist:
                 # if i find a waypoint that is closer to me than before
                 # note that i will always enter here to start the calculation for curr_closest_dist
