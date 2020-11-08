@@ -62,7 +62,7 @@ class WaypointFollowingMissionPlanner(MissionPlanner):
         ys = npy[:, 1]
         zs = npy[:, 2]
         approx = []
-        for i in range(0, len(ts), 2):
+        for i in range(len(ts)):
             x_popt = curve_fit(func, 
                                ts[max(0, i - 2) : min(mission_len, i + 3)], 
                                xs[max(0, i - 2) : min(mission_len, i + 3)])[0]
