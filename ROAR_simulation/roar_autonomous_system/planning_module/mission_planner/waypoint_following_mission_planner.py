@@ -74,9 +74,9 @@ class WaypointFollowingMissionPlanner(MissionPlanner):
                                zs[max(0, i - 2) : min(mission_len, i + 3)])[0]
 
             approx.append([func(ts[i], *x_popt), func(ts[i], *y_popt), func(ts[i], *z_popt)])
-            approx.append([func(ts[i] + 0.25, *x_popt), func(ts[i] + 0.25, *y_popt), func(ts[i] + 0.25, *z_popt)])
-            approx.append([func(ts[i] + 0.5, *x_popt), func(ts[i] + 0.5, *y_popt), func(ts[i] + 0.5, *z_popt)])
-            approx.append([func(ts[i] + 0.75, *x_popt), func(ts[i] + 0.75, *y_popt), func(ts[i] + 0.75, *z_popt)])
+            # approx.append([func(ts[i] + 0.25, *x_popt), func(ts[i] + 0.25, *y_popt), func(ts[i] + 0.25, *z_popt)])
+            # approx.append([func(ts[i] + 0.5, *x_popt), func(ts[i] + 0.5, *y_popt), func(ts[i] + 0.5, *z_popt)])
+            # approx.append([func(ts[i] + 0.75, *x_popt), func(ts[i] + 0.75, *y_popt), func(ts[i] + 0.75, *z_popt)])
         raw_path = approx
 
         for coord in raw_path:
