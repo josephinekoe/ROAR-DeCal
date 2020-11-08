@@ -127,7 +127,7 @@ class VehiclePIDController(Controller):
 
         acceptable_target_speed = self.target_speed
         if abs(self.vehicle.control.steering) < 0.05:
-            acceptable_target_speed += 20  # eco boost
+            acceptable_target_speed += 100  # eco boost
 
         acceleration = self._lon_controller.run_step(acceptable_target_speed)
         current_steering = self._lat_controller.run_step(next_waypoint)
@@ -150,7 +150,7 @@ class VehiclePIDController(Controller):
             steering = min(self.max_steer, current_steering)
         else:
             steering = max(-self.max_steer, current_steering)
-        if abs(current_steering) > 0.03 and curr_speed > 110:
+        if abs(current_steering) > 0.05 and curr_speed > 90:
             # if i am doing a sharp (>0.5) turn, i do not want to step on full gas
             control.throttle = -1
 
