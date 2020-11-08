@@ -21,6 +21,7 @@ from ROAR_simulation.roar_autonomous_system.utilities_module.errors import (
     AgentException,
 )
 
+
 class SimpleWaypointFollowingLocalPlanner(LocalPlanner):
     def __init__(
         self,
